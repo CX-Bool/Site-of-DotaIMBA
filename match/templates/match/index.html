@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IMBA IMBA!</title>
+    {% load staticfiles %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'match/css/bootstrap.min.css' %}">
+
+    <!-- jQuery library -->
+    <script src="{% static 'match/js/jquery-3.3.1.min.js' %}"></script>
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'match/js/bootstrap.min.js' %}"></script>
+
+    <style>
+        span {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body onload="onload()">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1>IMBA IMBA!</h1>
+            <div class="row">
+                <button type="button" class="btn btn-primary col-3" onclick="window.location ='/start'" >事实胜于雄辩</button>
+                <button type="button" class="btn btn-secondary col-3" onclick="window.location ='/heroes'">这个英雄没愿</button>
+                <button type="button" class="btn btn-warning col-3" onclick="window.location ='/games'">上把锤爆jk了吗</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h2>谁是巨头！</h2>
+        <h6>{{ time }}</h6>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Player</th>
+                    <th>Rank</th>
+                    <th>Wins</th>
+                    <th>Loses</th>
+                    <th>WinRate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% load percentage %}
+                {% load dot2 %}
+                {% for player in player_list %}
+                    <tr id="row{{ player.name }}">
+                        <td id="icon{{ player.name }}"><img src="{% static 'match/images/' %}{{ player.name }}32.png" alt="{{ player.name }}"></td>
+                        <td><a href="/playerdetail/{{ player.name }}">{{ player.name }}</a></td>
+                        <td>{{ player.rank_base|dot2|safe }}</td>
+                        <td>{{ player.wins }}</td>
+                        <td>{{ player.loses }}</td>
+                        <td>{{ player.win_rate|percentage }}</td>
+                    </tr>
+                {% endfor %}
+                {% if unplayed_list %}
+                    {% for player in unplayed_list %}
+                        <tr>
+                            <td id="icon{{ player.name }}"><img src="{% static 'match/images/' %}{{ player.name }}32.png" alt="{{ player.name }}"></td>
+                            <td>{{ player.name }}</td>
+                            <td><strong>--</strong>.--</td>
+                            <td>{{ player.wins }}</td>
+                            <td>{{ player.loses }}</td>
+                            <td>{{ player.win_rate|percentage }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    function onload() {
+        $('#icon'+'{{ top1 }}').append('<span class="badge badge-warning">1</span>');
+        $('#row'+'{{ top1 }}').addClass('table-warning');
+        $('#icon'+'{{ top2 }}').append('<span class="badge badge-secondary">2</span>');
+        $('#row'+'{{ top2 }}').addClass('table-secondary');
+        $('#icon'+'{{ top3 }}').append('<span class="badge badge-info">3</span>');
+        $('#row'+'{{ top3 }}').addClass('table-info');
+    }
+</script>
+</html>

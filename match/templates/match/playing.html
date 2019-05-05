@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEAM!</title>
+    {% load staticfiles %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'match/css/bootstrap.min.css' %}">
+
+    <!-- jQuery library -->
+    <script src="{% static 'match/js/jquery-3.3.1.min.js' %}"></script>
+
+    <script src="{% static 'match/js/popper.min.js' %}"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'match/js/bootstrap.min.js' %}"></script>
+
+    <style>
+        div.dropdown-multicol{
+            width: 108em;
+            overflow-y:hidden;
+        }
+        div.dropdown-row>a.dropdown-item{
+            display:inline-block;
+            width: 8%;
+        }
+    </style>
+</head>
+<body onload="load()">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 style="text-align:center">分队结果</h1>
+            <h2 style="text-align:center">{{ time }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col bg-success" style="text-align: center">
+            <h1 class="text-white">近卫</h1>
+        </div>
+        <div class="col bg-secondary" style="text-align: center">
+            <h1 class="text-white">天灾</h1>
+        </div>
+    </div>
+    <div class="row bg-light">
+        <div class="col">
+        <div class="row">
+        {% for name in radiant %}
+            <div class="bg-success col" style="margin:4%;padding: 1%;">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'match/images/'%}{{ name }}.png" alt="{{ name }}">
+                    <h4 class="card-text" style="text-align: center">{{ name }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+        <div class="col">
+        <div class="row">
+        {% for name in dire %}
+            <div class="bg-secondary col" style="margin: 4%;padding: 1%;">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'match/images/'%}{{ name }}.png" alt="{{ name }}">
+                    <h4 class="card-text" style="text-align: center">{{ name }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+    </div>
+
+    <form class="row bg-light" action="/result" method="post">
+    {% csrf_token %}
+    <div class="col"><div class="row">
+    {% for hero_i in range5 %}
+
+        <div class="dropdown col" style="margin: 4%;padding: 1%;">
+            <div class="input-group-btn">
+                <button class="btn dropdown-toggle btn-success"
+                        type="button" id="hero{{ hero_i }}" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                    <div class="card">
+                        <img src="{% static 'match/images/RANDOM.png' %}" alt="">
+                        <label>
+                            <input type="text" class="heroname" readonly="readonly" style="width: 100%" name="hero{{ hero_i }}">
+                        </label>
+                    </div>
+                </button>
+                <div class="dropdown-menu dropdown-multicol dropdown-menu-lg-right" data-
+                     style="float: right;">
+                    {% for i in range3 %}
+                        {% for j in range4 %}
+                            <div class="dropdown-row">
+                            <p hidden>{% cycle hero11 hero12 hero13 hero14 hero21 hero22 hero23 hero24 hero31 hero32 hero33 hero34 as heroes%}</p>
+                            {% for name in heroes %}
+                                <a class="dropdown-item" href="#" ><img src="{% static 'match/images/heroes/' %}hero{{ i }}{{ j }}/{{ name }}.png" alt="{{ name }}">{{ name }}</a>
+                            {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div></div>
+    <div class="col"><div class="row">
+    {% for hero_i in range5p %}
+
+        <div class="dropdown col" style="margin: 4%;padding: 1%;">
+            <div class="input-group-btn">
+                <button class="btn dropdown-toggle btn-secondary"
+                        type="button" id="hero{{ hero_i }}" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                    <div class="card">
+                        <img src="{% static 'match/images/RANDOM.png' %}" alt="">
+                        <label>
+                            <input type="text" class="heroname" readonly="readonly" style="width: 100%" name="hero{{ hero_i }}">
+                        </label>
+                    </div>
+                </button>
+                <div class="dropdown-menu dropdown-multicol dropdown-menu-lg-right" data-
+                     style="float: right;">
+                    {% for i in range3 %}
+                        {% for j in range4 %}
+                            <div class="dropdown-row">
+                            <p hidden>{% cycle hero11 hero12 hero13 hero14 hero21 hero22 hero23 hero24 hero31 hero32 hero33 hero34 as heroes%}</p>
+                            {% for name in heroes %}
+                                <a class="dropdown-item" href="#" ><img src="{% static 'match/images/heroes/' %}hero{{ i }}{{ j }}/{{ name }}.png" alt="{{ name }}">{{ name }}</a>
+                            {% endfor %}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div></div>
+
+
+    <div class="w-100">
+        <input type="hidden" name="active_players" value="{{ active_players }}">
+        <input type="hidden" name="radiant" value="{{ radiant }}">
+        <input type="hidden" name="dire" value="{{ dire }}">
+    </div>
+    <div class="col-6">
+        <button type="submit" class="btn-lg btn-success" style="margin: 0px auto;display: table; width: 256px" name="winner" value="radiant">近卫获胜</button>
+    </div>
+    <div class="col-6">
+        <button type="submit" class="btn-lg btn-secondary" style="margin: 0px auto;display: table; width: 256px" name="winner" value="dire">天灾获胜</button>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn-lg btn-warning" style="margin: 0px auto;display: table; width: 256px" name="winner" value="no">鸽了，撤</button>
+    </div>
+    </form>
+
+</body>
+<script>
+    $(".dropdown-menu a ").click(function(){
+        var src = $(this).find('img').attr("src");
+        $(this).parents(".input-group-btn").find('.btn').find('img').attr("src", src);
+        $(this).parents(".input-group-btn").find('.btn').find('label').find('.heroname').val($(this).text());
+    });
+    $(".input-group-btn").click(function(){
+
+        var l = $(this).offset().left + $(this).find('.dropdown-menu').width() - $(window).width();
+        $('html, body').animate({scrollLeft: l}, 800);
+    });
+    function load() {
+        for (let i = 1; i <= 10; i++) {
+            var v = {{ range_no }}[i-1];
+            if(v != 0){
+                var s = '#hero' + v.toString();
+                $(s).attr('disabled', true);
+            }
+        }
+    }
+
+</script>
+</html>

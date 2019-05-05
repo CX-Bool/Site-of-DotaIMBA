@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEAM!</title>
+    {% load staticfiles %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'match/css/bootstrap.min.css' %}">
+
+    <!-- jQuery library -->
+    <script src="{% static 'match/js/jquery-3.3.1.min.js' %}"></script>
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'match/js/bootstrap.min.js' %}"></script>
+    <style>
+        div.dropdown-multicol{
+            width: 108em;
+            overflow-y:hidden;
+        }
+        div.dropdown-row>a.dropdown-item{
+            display:inline-block;
+            width: 8%;
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 style="text-align:center">分队结果</h1>
+            <h2 style="text-align:center">{{ time }}</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col bg-success" style="text-align: center">
+            <h1 class="text-white">近卫</h1>
+        </div>
+        <div class="col bg-secondary" style="text-align: center">
+            <h1 class="text-white">天灾</h1>
+        </div>
+    </div>
+    <div class="row bg-light">
+        <div class="col">
+        <div class="row">
+        {% for name in radiant %}
+            <div class="bg-success col" style="margin:4%;padding: 1%;">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'match/images/'%}{{ name }}.png" alt="{{ name }}">
+                    <h4 class="card-text" style="text-align: center">{{ name }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+        <div class="col">
+        <div class="row">
+        {% for name in dire %}
+            <div class="bg-secondary col" style="margin: 4%;padding: 1%;">
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'match/images/'%}{{ name }}.png" alt="{{ name }}">
+                    <h4 class="card-text" style="text-align: center">{{ name }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+    </div>
+
+    <form class="row bg-light" action="/playing" method="post">
+    {% csrf_token %}
+    <div class="w-100"></div>
+    <div class="col-12">
+        <button type="submit" class="btn-lg btn-primary" style="margin: 0px auto;display: table; width: 256px">确定！准备！</button>
+        <input type="hidden" name="active_players" value="{{ active_players }}">
+        <input type="hidden" name="radiant" value="{{ radiant }}">
+        <input type="hidden" name="dire" value="{{ dire }}">
+    </div>
+    </form>
+    <form class="row" action="/start" method="post" style="margin-top: 32px">
+        {% csrf_token %}
+        <div class="w-100"></div>
+        <button type="submit" class="btn-lg btn-secondary col-12" style="margin: 0px auto;display: table; max-width: 256px">更改人数</button>
+        <input type="hidden" id="default_players" name="default_players" value="{{ active_players }}" hidden="hidden">
+    </form>
+
+</body>
+
+</html>

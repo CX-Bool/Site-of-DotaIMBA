@@ -1,0 +1,6 @@
+http://127.0.0.1:8000/manual?radiant=[%27fwk%27,%27pc%27,%27cx%27]&dire=[%27lwq%27,%27qfy%27,%27hlk%27,%27mzh%27]
+http://www.chenxu1995.com/manual?radiant=[%27fwk%27,%27lwq%27,%27ch%27]&dire=[%27lhy%27,%27qfy%27,%27cx%27,%27lq%27]
+http://www.chenxu1995.com/manual?radiant=[%27fwk%27,%27lwq%27,%27ch%27,%27lq%27]&dire=[%27lhy%27,%27qfy%27,%27cx%27,%27mzh%27]
+http://www.chenxu1995.com/manual?radiant=[%27lhy%27,%27qfy%27,%27cx%27,%27mzh%27]&dire=[%27fwk%27,%27lwq%27,%27ch%27,%27lq%27]
+http://www.chenxu1995.com/manual?radiant=[%27fwk%27,%27pc%27,%27hcd%27]&dire=[%27lhy%27,%27cx%27,%27lq%27]
+http://www.chenxu1995.com/manual?radiant=[%27fwk%27,%27pc%27,%27hcd%27]&dire=[%27lhy%27,%27cx%27,%27lq%27,%27mzh%27]

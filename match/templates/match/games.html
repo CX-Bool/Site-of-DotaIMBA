@@ -1,0 +1,111 @@
+{% extends 'match/base.html' %}
+{% block title %}对局记录{% endblock %}
+
+{% block main %}
+    {% load staticfiles %}
+    {% load percent %}
+    <div class="container">
+    <table id="table" class="table-bordered table-sm" data-toggle="table" data-pagination="true" data-search="true"
+           data-page-size="25">
+        <thead>
+            <tr>
+                <th colspan="5">近卫</th>
+                <th rowspan="2">结果</th>
+                <th rowspan="2">日期</th>
+                <th rowspan="2">结果</th>
+                <th colspan="5">天灾</th>
+            </tr>
+            <tr>
+                <th class="th-sm">玩家1</th>
+                <th class="th-sm">玩家2</th>
+                <th class="th-sm">玩家3</th>
+                <th class="th-sm">玩家4</th>
+                <th class="th-sm">玩家5</th>
+                <th class="th-sm">玩家6</th>
+                <th class="th-sm">玩家7</th>
+                <th class="th-sm">玩家8</th>
+                <th class="th-sm">玩家9</th>
+                <th class="th-sm">玩家10</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for game in gamelist %}
+        <tr class={{ game.winner }}>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero1 }}.png" alt="{{ game.hero1 }}">{{ game.hero1 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player1 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero2 }}.png" alt="{{ game.hero2 }}">{{ game.hero2 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player2 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero3 }}.png" alt="{{ game.hero3 }}">{{ game.hero3 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player3 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero4 }}.png" alt="{{ game.hero4 }}">{{ game.hero4 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player4 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero5 }}.png" alt="{{ game.hero5 }}">{{ game.hero5 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player5 }}</h4>
+                </div>
+            </td>
+            <td>
+                {{ game.radiant_result }}
+            </td>
+            <td>
+                {{ game }}
+            </td>
+            <td>
+                {{ game.dire_result }}
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero6 }}.png" alt="{{ game.hero6 }}">{{ game.hero6 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player6 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero7 }}.png" alt="{{ game.hero7 }}">{{ game.hero7 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player7}}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero8 }}.png" alt="{{ game.hero8 }}">{{ game.hero8 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player8 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero9 }}.png" alt="{{ game.hero9 }}">{{ game.hero9 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player9 }}</h4>
+                </div>
+            </td>
+            <td>
+                <div class="card border-secondary">
+                    <img class="card-img-top" src="{% static 'match/images/heroes/'%}{{ game.hero10 }}.png" alt="{{ game.hero10 }}">{{ game.hero10 }}
+                    <h4 class="card-text" style="text-align: center">{{ game.player10 }}</h4>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock main %}
+{% block js %}
+
+{% endblock %}

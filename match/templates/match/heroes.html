@@ -1,0 +1,39 @@
+{% extends 'match/base.html' %}
+{% block title %}英雄统计{% endblock %}
+
+{% block main %}
+    {% load staticfiles %}
+    {% load percent %}
+    <div class="container">
+    <table id="table" class="table-bordered table-sm" data-toggle="table" data-pagination="true" data-search="true"
+           data-page-size="25" data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="th-sm">Icon</th>
+                <th class="th-sm" data-sortable="true">Name</th>
+                <th class="th-sm" data-sortable="true">Wins</th>
+                <th class="th-sm" data-sortable="true">Loses</th>
+                <th class="th-sm" data-sortable="true">WinRate</th>
+                <th class="th-sm" data-sortable="true">Appearance</th>
+                <th class="th-sm" data-sortable="true">Rank</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for hero in herolist %}
+        <tr>
+            <td><img src="{% static 'match/images/heroes/' %}{{ hero.name }}32.png" alt="{{ hero.name }}"></td>
+            <td><a href="/herodetail/{{ hero.name }}">{{ hero.name }}</a></td>
+            <td>{{ hero.wins }}</td>
+            <td>{{ hero.loses }}</td>
+            <td>{{ hero.win_rate|percent}}</td>
+            <td>{{ hero.appearance}}</td>
+            <td>{{ hero.rank_base|floatformat:3}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock main %}
+{% block js %}
+
+{% endblock %}

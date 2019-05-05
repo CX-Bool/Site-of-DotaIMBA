@@ -1,0 +1,79 @@
+{% extends 'match/base.html' %}
+{% block title %}玩家个人资料{% endblock %}
+
+{% block main %}
+    {% load staticfiles %}
+    {% load percent %}
+    <div class="container">
+    <h1>{{ player }}英雄统计</h1>
+    </div>
+    <div class="container">
+    <table id="table" class="table-bordered table-sm" data-toggle="table" data-pagination="true" data-search="true"
+           data-page-size="25" data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="th-sm">Icon</th>
+                <th class="th-sm" data-sortable="true">Hero</th>
+                <th class="th-sm" data-sortable="true">Wins</th>
+                <th class="th-sm" data-sortable="true">Loses</th>
+                <th class="th-sm" data-sortable="true">WinRate</th>
+                <th class="th-sm" data-sortable="true">Appearance</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for player in data %}
+        <tr>
+            <td><img src="{% static 'match/images/heroes/' %}{{ player.name }}32.png" alt="{{ player.name }}"></td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.wins }}</td>
+            <td>{{ player.loses }}</td>
+            <td>{{ player.winrate|percent}}</td>
+            <td>{{ player.appearance}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+
+    <div class="container">
+    <h1>{{ player }}其他玩家统计</h1>
+    </div>
+    <div class="container">
+    <table id="table" class="table-bordered table-sm" data-toggle="table" data-pagination="true" data-search="true"
+           data-page-size="25" data-sort-order="desc">
+        <thead>
+            <tr>
+                <th class="th-sm">Icon</th>
+                <th class="th-sm" data-sortable="true">Player</th>
+                <th class="th-sm" data-sortable="true">Wins_with</th>
+                <th class="th-sm" data-sortable="true">Loses_with</th>
+                <th class="th-sm" data-sortable="true">Plays_with</th>
+                <th class="th-sm" data-sortable="true">Winrate_with</th>
+                <th class="th-sm" data-sortable="true">Wins_against</th>
+                <th class="th-sm" data-sortable="true">Loses_against</th>
+                <th class="th-sm" data-sortable="true">Plays_against</th>
+                <th class="th-sm" data-sortable="true">Winrate_against</th>
+            </tr>
+        </thead>
+    <tbody>
+    {% for player in playerdata %}
+        <tr>
+            <td><img src="{% static 'match/images/' %}{{ player.name }}32.png" alt="{{ player.name }}"></td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.wins_with }}</td>
+            <td>{{ player.loses_with }}</td>
+            <td>{{ player.plays_with}}</td>
+            <td>{{ player.winrate_with|percent}}</td>
+            <td>{{ player.wins_against }}</td>
+            <td>{{ player.loses_against }}</td>
+            <td>{{ player.plays_against}}</td>
+            <td>{{ player.winrate_against|percent}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% endblock main %}
+{% block js %}
+
+{% endblock %}

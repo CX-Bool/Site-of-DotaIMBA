@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start!</title>
+    {% load staticfiles %}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'match/css/bootstrap.min.css' %}">
+
+    <!-- jQuery library -->
+    <script src="{% static 'match/js/jquery-3.3.1.min.js' %}"></script>
+
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static 'match/js/bootstrap.min.js' %}"></script>
+
+</head>
+<body onload="onload()">
+    {% if match_info %}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> {{ match_info }}
+        </div>
+    {% endif %}
+    {% if player_list %}
+        <div class="container">
+            <h2>参赛名单</h2>
+            <form action="/team" method="post" class="row">
+                {% csrf_token %}
+                {% for player in player_list %}
+                    <div class="form-check col-3">
+                        <input class="form-check-input position-static" type="checkbox" id="{{ player.name }}" name={{ player.name }} value="go">
+
+                        <div class="card border-secondary" style="max-width: 66px;">
+                            <img class="card-img-top" src="{% static 'match/images/'%}{{ player.name }}.png" alt="{{ player.name }}">
+                            <h4 class="card-text" style="text-align: center">{{ player.name }}</h4>
+                        </div>
+                        <div >
+                            <p >rank:{{ player.rank_base|floatformat:2 }}</p>
+                            <p class="text-success">wins:{{ player.wins }}</p>
+                            <p class="text-danger">loses:{{ player.loses }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="w-100"></div>
+                <div class="col-12">
+                    <button type="submit" class="btn-lg btn-primary" style="margin: 0px auto;display: table; width: 256px">冲</button>
+                </div>
+{#                <div class="form-check col-6">#}
+{#                    <input class="form-check-input position-static" type="hidden" id="no" name="no" value="go" disabled>#}
+{#                    <div style="height: 24px"></div>#}
+{#                    <button type="submit" class="btn btn-primary" style="width: 66px;height: 94px;">冲！</button>#}
+{#                </div>#}
+            </form>
+        </div>
+    {% endif %}
+    {% if player_num_err == True %}
+        <div class="alert alert-danger alert-dismissible container">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error!</strong> 玩家数量不正确，请排队取号
+        </div>
+    {% endif %}
+
+</body>
+<script>
+    function onload() {
+        var arr = {{ default_players|safe }};
+        for(let i = 0; i< arr.length; i++){
+            $('#'+arr[i].toString()).attr('checked',true);
+        }
+    }
+</script>
+</html>
